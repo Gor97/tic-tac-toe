@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import Cell from "./Cell.js";
 import "./Game.css";
 
+
+
     function Game(props) {
+        
     const [board, setBoard] = useState([
         ["+", "+", "+"],
         ["+", "+", "+"],
@@ -66,14 +69,25 @@ import "./Game.css";
     }
     
     function changeCellValue(rowIdx, colIdx) {
+        
         if (props.winner || board[rowIdx][colIdx] !== "+") return;
-    
         const newBoard = board.map((row) => [...row]);
         newBoard[rowIdx][colIdx] = props.xIsNext ? "X" : "O";
     
         setBoard(newBoard);
         props.setXIsNext(!props.xIsNext);
         checkWinner(newBoard, rowIdx, colIdx);
+    }
+
+    function resetBoard() {
+        const newBoard = [
+            ["+", "+", "+"],
+            ["+", "+", "+"],
+            ["+", "+", "+"],
+        ]
+        setBoard(newBoard);
+        props.setXIsNext(true);
+        props.setWinner(null);
     }
 
     return (
@@ -95,8 +109,11 @@ import "./Game.css";
                             );
                         })}
                     </div>
-                );
-            })}
+                ); })}
+
+            <button onClick={resetBoard}>
+                Reset The game
+            </button>
         </div>
     );
 }

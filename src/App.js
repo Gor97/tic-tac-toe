@@ -16,11 +16,11 @@ function App() {
                     <strong>Winner: </strong> {winner}
                 </p>
             )}
-            <p className="reload-text">Reload the page to start a new game</p>
             <Game
                 setWinner={setWinner}
                 setXIsNext={setXIsNext}
                 xIsNext={xIsNext}
+                winner={winner}
             />
         </div>
     );
