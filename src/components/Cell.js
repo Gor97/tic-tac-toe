@@ -5,7 +5,7 @@ function Cell(props) {
     return (
         <div
             className={`cellWrapper ${
-                props.value !== "+"
+                props.value !== " "
                     ? props.value === "X"
                         ? "redBg"
                         : "blueBg"

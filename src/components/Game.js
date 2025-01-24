@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import Cell from "./Cell.js";
 import "./Game.css";
-
-
+import 'bootstrap/dist/css/bootstrap.css';
 
     function Game(props) {
         
     const [board, setBoard] = useState([
-        ["+", "+", "+"],
-        ["+", "+", "+"],
-        ["+", "+", "+"],
+        [" ", " ", " "],
+        [" ", " ", " "],
+        [" ", " ", " "],
     ]);
 
     function checkWinner(board, rowIdx, colIdx) {
@@ -58,7 +57,7 @@ import "./Game.css";
         let draw = true;
         for (let i = 0; i < 3; i++) {
             for (let j = 0; j < 3; j++) {
-                if (board[i][j] === "+") {
+                if (board[i][j] === " ") {
                     draw = false;
                     break;
                 }
@@ -70,7 +69,7 @@ import "./Game.css";
     
     function changeCellValue(rowIdx, colIdx) {
         
-        if (props.winner || board[rowIdx][colIdx] !== "+") return;
+        if (props.winner || board[rowIdx][colIdx] !== " ") return;
         const newBoard = board.map((row) => [...row]);
         newBoard[rowIdx][colIdx] = props.xIsNext ? "X" : "O";
     
@@ -81,9 +80,9 @@ import "./Game.css";
 
     function resetBoard() {
         const newBoard = [
-            ["+", "+", "+"],
-            ["+", "+", "+"],
-            ["+", "+", "+"],
+            [" ", " ", " "],
+            [" ", " ", " "],
+            [" ", " ", " "],
         ]
         setBoard(newBoard);
         props.setXIsNext(true);
@@ -110,10 +109,7 @@ import "./Game.css";
                         })}
                     </div>
                 ); })}
-
-            <button onClick={resetBoard}>
-                Reset The game
-            </button>
+            <button type="button" class="resetButton btn btn-raised btn-primary" onClick={resetBoard}>Reset The Game</button>
         </div>
     );
 }
