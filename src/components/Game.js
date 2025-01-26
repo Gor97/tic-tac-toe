@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Cell from "./Cell.js";
 import "./Game.css";
-import 'bootstrap/dist/css/bootstrap.css';
+import Scoreboard from "./Scoreboard.js";
 
     function Game(props) {
         
@@ -10,6 +10,9 @@ import 'bootstrap/dist/css/bootstrap.css';
         [" ", " ", " "],
         [" ", " ", " "],
     ]);
+
+    const [xWonTimes, setXWonTimes] = useState(0);
+    const [oWonTimes, setOWonTimes] = useState(0);
 
     function checkWinner(board, rowIdx, colIdx) {
         const currentSymbol = board[rowIdx][colIdx];
@@ -22,6 +25,8 @@ import 'bootstrap/dist/css/bootstrap.css';
                 board[i][2] === currentSymbol
             ) {
                 props.setWinner(currentSymbol);
+                if (currentSymbol === "X") setXWonTimes(xWonTimes+1) 
+                    else setOWonTimes(oWonTimes+1) 
                 return;
             }
         }
@@ -34,6 +39,8 @@ import 'bootstrap/dist/css/bootstrap.css';
                 board[2][i] === currentSymbol
             ) {
                 props.setWinner(currentSymbol);
+                if (currentSymbol === "X") setXWonTimes(xWonTimes+1) 
+                    else setOWonTimes(oWonTimes+1) 
                 return;
             }
         }
@@ -50,6 +57,8 @@ import 'bootstrap/dist/css/bootstrap.css';
                 board[2][0] === currentSymbol)
         ) {
             props.setWinner(currentSymbol);
+            if (currentSymbol === "X") setXWonTimes(xWonTimes+1) 
+                else setOWonTimes(oWonTimes+1) 
             return;
         }
     
@@ -89,8 +98,16 @@ import 'bootstrap/dist/css/bootstrap.css';
         props.setWinner(null);
     }
 
+    function resetScoreboard() {
+        setXWonTimes(0);
+        setOWonTimes(0);
+        resetBoard();
+    }
+
     return (
         <div className="gameWrapper">
+            <Scoreboard xWonTimes={xWonTimes} oWonTimes={oWonTimes}/>
+            <br/>
             {board.map((row, rowIdx) => {
                 return (
                     <div key={rowIdx} className="rowWrapper">
@@ -109,7 +126,10 @@ import 'bootstrap/dist/css/bootstrap.css';
                         })}
                     </div>
                 ); })}
-            <button type="button" class="resetButton btn btn-raised btn-primary" onClick={resetBoard}>Reset The Game</button>
+                <div>
+                <button type="button" class="resetButton btn btn-raised btn-primary" onClick={resetBoard}>Reset Current Game</button>
+                <button type="button" class="resetButton btn btn-raised btn-secondary" onClick={resetScoreboard}>Reset Scoreboard</button>
+                </div>
         </div>
     );
 }
