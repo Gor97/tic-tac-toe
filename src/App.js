@@ -5,26 +5,29 @@ import "./App.css";
 function App() {
     const [xIsNext, setXIsNext] = useState(true);
     const [winner, setWinner] = useState(null);
+
+    const getStatusClass = () => {
+        if (winner) return "game-status winner";
+        return xIsNext ? "game-status player-x" : "game-status player-o";
+    };
+
+    const getStatusText = () => {
+        if (winner === "Draw") return "Game Over - It's a Draw!";
+        if (winner) return `${winner} Wins! 🎉`;
+        return `${xIsNext ? "X" : "O"}'s Turn`;
+    };
+
     return (
         <div className="appWrapper">
-            
             <Game
                 setWinner={setWinner}
                 setXIsNext={setXIsNext}
                 xIsNext={xIsNext}
                 winner={winner}
             />
-            <br/>
-            {!winner && (
-                <p>
-                    <strong>Current Player: </strong> {xIsNext ? "X" : "O"}
-                </p>
-            )}
-            {winner && (
-                <p>
-                    <strong>Winner: </strong> {winner}
-                </p>
-            )}
+            <div className={getStatusClass()}>
+                {getStatusText()}
+            </div>
         </div>
     );
 }

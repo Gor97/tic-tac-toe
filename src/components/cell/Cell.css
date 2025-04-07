@@ -1,31 +1,44 @@
 .cellWrapper {
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid black;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 0 5px;
+}
+
+.cellWrapper:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.02);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .tic-tac-toe-image {
-    max-width: 80%;
-    max-height: 80%; 
-  }
+    max-width: 70%;
+    max-height: 70%;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
+}
   
-  .x-animation {
+.x-animation {
     animation: spinX 0.5s ease-in-out;
-  }
+}
   
-  @keyframes spinX {
+@keyframes spinX {
     0% { transform: rotateY(0deg); }
     100% { transform: rotateY(360deg); }
-  }
+}
   
-  .o-animation {
+.o-animation {
     animation: zoomO 0.5s ease-in-out; 
-  }
+}
   
-  @keyframes zoomO {
+@keyframes zoomO {
     0% { transform: scale(0.8); }
     100% { transform: scale(1); }
-  }
+}

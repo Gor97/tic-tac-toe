@@ -37,7 +37,7 @@ const handleReset = async () => {
 };
 
 
-  function incremenetScore(isX) {
+  function incrementScore(isX) {
     if (isX) {
         handleIncrementX()
     } else {
@@ -47,77 +47,77 @@ const handleReset = async () => {
 
   function checkWinner(board, rowIdx, colIdx) {
     const currentSymbol = board[rowIdx][colIdx];
-
-    // Check rows
-    for (let i = 0; i < 3; i++) {
-      if (
-        board[i][0] === currentSymbol &&
-        board[i][1] === currentSymbol &&
-        board[i][2] === currentSymbol
-      ) {
-        props.setWinner(currentSymbol);
-        if (currentSymbol === "X") 
-            {
-                incremenetScore(true)
-            }
-        else 
-        {
-            incremenetScore(false)
-        }
-        return;
-      }
-    }
-
-    // Check columns
-    for (let i = 0; i < 3; i++) {
-      if (
-        board[0][i] === currentSymbol &&
-        board[1][i] === currentSymbol &&
-        board[2][i] === currentSymbol
-      ) {
-        props.setWinner(currentSymbol);
-        if (currentSymbol === "X") {
-            incremenetScore(true)
-        }
-        else {
-            incremenetScore(false)
-        }
-        return;
-      }
-    }
-
-    // Check diagonals
-    if (
-      (rowIdx === colIdx &&
-        board[0][0] === currentSymbol &&
-        board[1][1] === currentSymbol &&
-        board[2][2] === currentSymbol) ||
-      (rowIdx + colIdx === 2 &&
-        board[0][2] === currentSymbol &&
-        board[1][1] === currentSymbol &&
-        board[2][0] === currentSymbol)
-    ) {
+    
+    // Check if there's a win
+    if (checkRowWin(board, currentSymbol) || 
+        checkColumnWin(board, currentSymbol) || 
+        checkDiagonalWin(board, currentSymbol, rowIdx, colIdx)) {
       props.setWinner(currentSymbol);
-      if (currentSymbol === "X") {
-        incremenetScore(true)
-      } else {
-        incremenetScore(false)
-      }
+      incrementScore(currentSymbol === "X");
       return;
     }
-
+    
     // Check for draw
-    let draw = true;
+    if (isDraw(board)) {
+      props.setWinner("Draw");
+    }
+  }
+  
+  // Helper function to check if a row has a win
+  function checkRowWin(board, symbol) {
+    for (let i = 0; i < 3; i++) {
+      if (board[i][0] === symbol && 
+          board[i][1] === symbol && 
+          board[i][2] === symbol) {
+        return true;
+      }
+    }
+    return false;
+  }
+  
+  // Helper function to check if a column has a win
+  function checkColumnWin(board, symbol) {
+    for (let i = 0; i < 3; i++) {
+      if (board[0][i] === symbol && 
+          board[1][i] === symbol && 
+          board[2][i] === symbol) {
+        return true;
+      }
+    }
+    return false;
+  }
+  
+  // Helper function to check if a diagonal has a win
+  function checkDiagonalWin(board, symbol, rowIdx, colIdx) {
+    // Check main diagonal (top-left to bottom-right)
+    if (rowIdx === colIdx && 
+        board[0][0] === symbol && 
+        board[1][1] === symbol && 
+        board[2][2] === symbol) {
+      return true;
+    }
+    
+    // Check counter diagonal (top-right to bottom-left)
+    if (rowIdx + colIdx === 2 && 
+        board[0][2] === symbol && 
+        board[1][1] === symbol && 
+        board[2][0] === symbol) {
+      return true;
+    }
+    
+    return false;
+  }
+  
+  // Helper function to check if the game is a draw
+  function isDraw(board) {
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
         if (board[i][j] === " ") {
-          draw = false;
-          break;
+          return false;
         }
       }
     }
-
-    if (draw) props.setWinner("Draw");
+    return true;
   }
 
   function changeCellValue(rowIdx, colIdx) {
@@ -165,7 +165,7 @@ const handleReset = async () => {
           </div>
         );
       })}
-      <div>
+      <div className="button-container">
         <button
           type="button"
           className="resetButton btn btn-raised btn-primary"
