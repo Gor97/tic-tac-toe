@@ -30,6 +30,37 @@
     margin-bottom: 10px;
     color: #333;
     font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.player-name:hover::after {
+    content: '✎';
+    position: absolute;
+    margin-left: 5px;
+    opacity: 0.5;
+}
+
+.player-name-input {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #333;
+    border: none;
+    border-bottom: 2px solid #4facfe;
+    background: transparent;
+    padding: 5px;
+    margin-bottom: 10px;
+    text-align: center;
+    width: 100%;
+    max-width: 150px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.player-name-input:focus {
+    border-bottom-color: #a777e3;
 }
 
 .score-badge {

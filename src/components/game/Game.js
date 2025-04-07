@@ -148,7 +148,15 @@ const handleReset = async () => {
 
   return (
     <div className="gameWrapper">
-      <Scoreboard xWonTimes={scores.x} oWonTimes={scores.o} />
+      <Scoreboard 
+        xWonTimes={scores.x} 
+        oWonTimes={scores.o}
+        playerX={props.playerX}
+        playerO={props.playerO}
+        setPlayerX={props.setPlayerX}
+        setPlayerO={props.setPlayerO}
+        winner={props.winner}
+      />
       <br />
       {board.map((row, rowIdx) => {
         return (

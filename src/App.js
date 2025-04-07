@@ -5,6 +5,8 @@ import "./App.css";
 function App() {
     const [xIsNext, setXIsNext] = useState(true);
     const [winner, setWinner] = useState(null);
+    const [playerX, setPlayerX] = useState("Player X");
+    const [playerO, setPlayerO] = useState("Player O");
 
     const getStatusClass = () => {
         if (winner) return "game-status winner";
@@ -13,8 +15,8 @@ function App() {
 
     const getStatusText = () => {
         if (winner === "Draw") return "Game Over - It's a Draw!";
-        if (winner) return `${winner} Wins! 🎉`;
-        return `${xIsNext ? "X" : "O"}'s Turn`;
+        if (winner) return `${winner === "X" ? playerX : playerO} Wins! 🎉`;
+        return `${xIsNext ? playerX : playerO}'s Turn`;
     };
 
     return (
@@ -24,6 +26,10 @@ function App() {
                 setXIsNext={setXIsNext}
                 xIsNext={xIsNext}
                 winner={winner}
+                playerX={playerX}
+                playerO={playerO}
+                setPlayerX={setPlayerX}
+                setPlayerO={setPlayerO}
             />
             <div className={getStatusClass()}>
                 {getStatusText()}
